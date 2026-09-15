@@ -1,27 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import REAL
 import 'sign.dart';
 import 'forgot.dart';
-
-class FirebaseAuthException implements Exception {
-  final String code;
-
-  const FirebaseAuthException(this.code);
-}
-
-class FirebaseAuth {
-  FirebaseAuth._();
-
-  static final FirebaseAuth instance = FirebaseAuth._();
-
-  Future<void> signInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-
-    throw const FirebaseAuthException('user-not-found');
-  }
-}
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -72,7 +52,8 @@ class _LoginPageState extends State<LoginPage> {
       case 'invalid-email':
         return 'E-mail inválido.';
       case 'user-not-found':
-        return 'Usuário não encontrado.';
+      case 'invalid-credential':
+        return 'Usuário ou senha incorretos.';
       case 'wrong-password':
         return 'Senha incorreta.';
       case 'too-many-requests':

@@ -1,31 +1,5 @@
 import 'package:flutter/material.dart';
-
-class FirebaseAuthException implements Exception {
-  FirebaseAuthException(this.code);
-
-  final String code;
-}
-
-class User {
-  Future<void> sendEmailVerification() async {}
-}
-
-class UserCredential {}
-
-class FirebaseAuth {
-  static final FirebaseAuth instance = FirebaseAuth._();
-
-  FirebaseAuth._();
-
-  User? get currentUser => null;
-
-  Future<UserCredential> createUserWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    return UserCredential();
-  }
-}
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignPage extends StatefulWidget {
   const SignPage({super.key});
@@ -79,11 +53,11 @@ class _SignPageState extends State<SignPage> {
     });
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+      final userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      await userCredential.user?.sendEmailVerification();
+
       if (!mounted) return;
       Navigator.pop(context);
     } on FirebaseAuthException catch (exception) {
@@ -104,7 +78,7 @@ class _SignPageState extends State<SignPage> {
       case 'invalid-email':
         return 'E-mail inválido.';
       case 'operation-not-allowed':
-        return 'Método de login desabilitado no Firebase.';
+        return 'Método de login desabilitado no Firebase Console.';
       case 'weak-password':
         return 'Senha muito fraca (use 6+ caracteres).';
       default:
