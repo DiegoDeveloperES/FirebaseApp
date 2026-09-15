@@ -1,23 +1,5 @@
 import 'package:flutter/material.dart';
-
-class FirebaseAuthException implements Exception {
-  const FirebaseAuthException([this.message]);
-
-  final String? message;
-
-  @override
-  String toString() => message ?? 'FirebaseAuthException';
-}
-
-class FirebaseAuth {
-  FirebaseAuth._();
-
-  static final FirebaseAuth instance = FirebaseAuth._();
-
-  Future<void> sendPasswordResetEmail({required String email}) async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-  }
-}
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ForgotPage extends StatefulWidget {
   const ForgotPage({super.key});
