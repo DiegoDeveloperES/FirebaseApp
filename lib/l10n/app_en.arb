@@ -1,0 +1,11 @@
+{
+    "@@locale": "en",
+    "notes": "Notes",
+    "@notes": {
+        "description": "The notes title."
+    },
+    "logout": "Logout",
+    "@logout":{
+        "description": "Logout of system"
+    }
+}
